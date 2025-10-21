@@ -30,4 +30,23 @@ public class PassengerService {
         store.add(p);
         return p;
     }
+    public Passenger update(Passenger p) {
+        Optional<Passenger> found = findById(p.getPassengerId());
+        if (found.isPresent()) {
+            store.remove(found.get());
+            store.add(p);
+            return p;
+        }
+        throw new IllegalArgumentException("Passenger not found");
+    }
+
+    public Passenger delete(String id) {
+        Optional<Passenger> found = findById(id);
+        if (found.isPresent()) {
+            store.remove(found.get());
+            return found.get();
+        }
+        throw new IllegalArgumentException("Passenger not found");
+
+    }
 }

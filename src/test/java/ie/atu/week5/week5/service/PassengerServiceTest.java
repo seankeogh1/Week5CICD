@@ -48,4 +48,50 @@ public class PassengerServiceTest {
                         .email("bob@ex.com")
                         .build()));
     }
+    @Test
+    void updateSuccess(){
+        Passenger p = Passenger.builder()
+                        .passengerId("123")
+                        .name("John")
+                        .email("john@atu.ie")
+                .build();
+
+        service.create(p);
+
+        Passenger updated = Passenger.builder()
+                .passengerId("145")
+                .name("Paul")
+                .email("lima@ex.com")
+                .build();
+
+        service.update(updated);
+    }
+    @Test
+    void deleteSuccess(){
+        Passenger p = Passenger.builder()
+                .passengerId("123")
+                .name("John")
+                .email("john@atu.ie")
+                .build();
+
+        service.create(p);
+        service.delete("123");
+    }
+    @Test
+    void updateFail(){
+        Passenger nobody = Passenger.builder()
+                .passengerId("13")
+                .name("Nobody")
+                .email("nobody@atu.ie")
+                .build();
+
+        assertThrows(IllegalArgumentException.class, () -> service.update(nobody));
+
+    }
+    @Test
+    void deleteFail(){
+        service.delete("123");
+        assertFalse(service.findById("123").isPresent());
+    }
+
     }
