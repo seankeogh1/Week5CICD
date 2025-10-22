@@ -22,10 +22,6 @@ public class PassengerController {
         this.service = service;
     }
 
-    @GetMapping
-    public ResponseEntity<List<Passenger>> getAll() {
-        return ResponseEntity.ok(service.findAll());
-    }
 
 
     @GetMapping("/{id}")
@@ -44,6 +40,7 @@ public class PassengerController {
                 .created(URI.create("/api/passengers" + created.getPassengerId()))
                 .body(created);
     }
+
     @PutMapping("/{id}")
     public ResponseEntity<Passenger> updatePassenger(@PathVariable String id, @Valid @RequestBody Passenger p) {
         Optional<Passenger> maybe = service.findById(id);
