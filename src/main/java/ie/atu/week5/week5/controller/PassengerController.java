@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -20,6 +21,13 @@ public class PassengerController {
     public PassengerController(PassengerService service) {
         this.service = service;
     }
+
+    @GetMapping
+    public ResponseEntity<List<Passenger>> getAll() {
+        return ResponseEntity.ok(service.findAll());
+    }
+
+
     @GetMapping("/{id}")
     public ResponseEntity<Passenger> getAll(@PathVariable String id) {
         Optional<Passenger> maybe = service.findById(id);

@@ -49,4 +49,8 @@ public class PassengerService {
         throw new IllegalArgumentException("Passenger not found");
 
     }
+    public Passenger findAll() {
+        return store.stream().findFirst().orElse(null);
+    }
+
 }
