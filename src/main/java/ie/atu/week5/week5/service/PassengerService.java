@@ -24,8 +24,10 @@ public class PassengerService {
     }
 
     public Passenger create(Passenger p) {
-        if (findById(p.getPassengerId()).isPresent()) {
-            throw new IllegalArgumentException("Passenger already exists");
+        for (Passenger ps : store) {
+            if (findById(p.getPassengerId()).isPresent()) {
+                throw new IllegalArgumentException("Passenger already exists" + ps.getPassengerId() + "already exists");
+            }
         }
         store.add(p);
         return p;
@@ -33,11 +35,10 @@ public class PassengerService {
     public Passenger update(Passenger p) {
         Optional<Passenger> found = findById(p.getPassengerId());
         if (found.isPresent()) {
-            store.remove(found.get());
-            store.add(p);
-            return p;
+            return update(found.get());
         }
         throw new IllegalArgumentException("Passenger not found");
+
     }
 
     public Passenger delete(String id) {
